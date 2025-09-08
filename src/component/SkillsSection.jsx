@@ -1,3 +1,6 @@
+import { useState } from "react";
+import {cn} from "@/lib/utils";
+
 const skills = [
   // Frontend
   { name: "HTML/CSS", level: 95, category: "frontend" },
@@ -20,17 +23,34 @@ const skills = [
   //   { name: "Figma", level: 85, category: "tools" },
 ];
 
+const catagories = ["all", "frontend", "backend", "tools"];
 const SkillsSection = () => {
+  const [activeCatagory, setActiveCatagory] = useState("all");
+
+  const filteredSkills = skills.filter((skill)=>activeCatagory === "all" || skill.category === activeCatagory)
   return (
     <section id="skills" className="py-24 px-4 relative bg-secondary/30">
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
           My <span className="text-primary">Skills</span>
         </h2>
-
+        {/* catagory filter skill section   */}
+        <div className="flex flex-wrap justify-center gap-4 mb-12">
+          {catagories.map((catagory, key) => (
+            <button
+              key={key}
+              onClick={()=>setActiveCatagory(catagory)}
+              className={cn("px-5 py-2 rounded-full transition-colors suration-300 capitalize",
+                activeCatagory == catagory ? "bg-primary text-primary-foreground" : "bg-secondary/70 text-foreground hover:bg-secondary"
+              )}
+            >
+              {catagory}
+            </button>
+          ))}
+        </div>
         {/* my skill list section  */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skills.map((skill, key) => (
+          {filteredSkills.map((skill, key) => (
             <div
               key={key}
               className="bg-card p-6 rounded-lg shadow-xs card-hover"
@@ -45,7 +65,9 @@ const SkillsSection = () => {
                 />
               </div>
               <div className="text-right mt-1">
-                <span className="text-sm text-muted-forefround">{skill.level}%</span>
+                <span className="text-sm text-muted-forefround">
+                  {skill.level}%
+                </span>
               </div>
             </div>
           ))}
