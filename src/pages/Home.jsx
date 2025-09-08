@@ -3,6 +3,8 @@ import ThemeToggle from "../component/ThemeToggle";
 import StarBackground from "@/component/StarBackground";
 import Navbar from "@/component/Navbar"
 import HeroSection from "../component/HeroSection";
+import AboutMe from "../component/AboutMe";
+import SkillsSection from "../component/SkillsSection";
 
 const Home = () => {
   return (
@@ -16,6 +18,8 @@ const Home = () => {
       {/* main content */}
       <main>
         <HeroSection/>
+        <AboutMe/>
+        <SkillsSection/>
       </main>
       {/* footer */}
     </div>
